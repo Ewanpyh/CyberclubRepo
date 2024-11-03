@@ -71,7 +71,7 @@ public class VersusUser {
     private static void createAccount() {
         System.out.print("Введите номер телефона: ");
         String phoneNumber = scanner.nextLine();
-        if (phoneNumber.charAt(0) == '+' && phoneNumber.length() == 12){                        //check if phone number is correct +7 && 11 digits
+        if (phoneNumber.charAt(0) == '+' && phoneNumber.length() == 12){
             if (accounts.containsKey(phoneNumber)) {
                 System.out.println("Аккаунт с таким номером телефона уже существует.");
             } else {
