@@ -2,6 +2,8 @@ import java.util.Scanner;
 import java.util.HashMap;
 import java.util.Map;
 
+//add databases xlsx for users
+
 public class VersusUser {
 
     private static Map<String, Account> accounts = new HashMap<>();
@@ -14,7 +16,8 @@ public class VersusUser {
             if (loggedInAccount == null){
             System.out.println("1. Создать аккаунт"); //main menu
             System.out.println("2. Вход в аккаунт"); 
-            // Add JavaFX
+            /*  Add JavaFX for all menues        1. showing packages on all the menus *on users and 
+                                     on the main 2. show balance on users menu  */
             }
             if (loggedInAccount != null) {
                 System.out.println("1. Пополнить баланс"); // menu после авторизации
@@ -67,15 +70,19 @@ public class VersusUser {
     // Метод для создания аккаунта
     private static void createAccount() {
         System.out.print("Введите номер телефона: ");
-        String phoneNumber = scanner.nextLine(); //check if phone number is correct +7 && 11 digits
-
-        if (accounts.containsKey(phoneNumber)) {
-            System.out.println("Аккаунт с таким номером телефона уже существует.");
-        } else {
-            System.out.print("Введите пароль: ");
-            String password = scanner.nextLine();
-            accounts.put(phoneNumber, new Account(phoneNumber, password));
-            System.out.println("Аккаунт успешно создан!");
+        String phoneNumber = scanner.nextLine();
+        if (phoneNumber.charAt(0) == '+'){                        //check if phone number is correct +7 && 11 digits
+            if (accounts.containsKey(phoneNumber)) {
+                System.out.println("Аккаунт с таким номером телефона уже существует.");
+            } else {
+                System.out.print("Введите пароль: ");
+                String password = scanner.nextLine();
+                accounts.put(phoneNumber, new Account(phoneNumber, password));
+                System.out.println("Аккаунт успешно создан!");
+            }
+        }
+        else{
+            System.out.println("\n Неверный номер\n Номер должен начинаться с +7\n Попробуйте снова");
         }
     }
 
@@ -126,7 +133,9 @@ public class VersusUser {
             System.out.println("4. 5 часов - 350 рублей");
             System.out.println("5. Сутки - 1100 рублей");
             System.out.println("6. Ночь - 350 рублей");
-            System.out.println("7. Утро - 200 рублей");
+            System.out.println("7. Утро - 200 рублей\n");
+            System.out.println("8. Назад");
+            System.out.println("Ваш баланс: " + loggedInAccount.getBalance());
             System.out.print("Выберите номер пакета: ");
 
             int packageChoice = scanner.nextInt();
@@ -140,18 +149,24 @@ public class VersusUser {
                 case 5: packageCost = 1100; break;
                 case 6: packageCost = 350; break;
                 case 7: packageCost = 200; break;
+                case 8: break;
                 default:
                     System.out.println("Неверный выбор, попробуйте снова.");
                     return;
             }
-
-            if (loggedInAccount.getBalance() >= packageCost) {
-                loggedInAccount.deductBalance(packageCost);
-                System.out.println("Пакет успешно приобретен! Списано " + packageCost + " рублей. Текущий баланс: " + loggedInAccount.getBalance() + " рублей");
-            } else {
-                System.out.println("Недостаточно средств для покупки этого пакета.");
+            if(packageChoice == 8){
+                return;
             }
-        } else {
+            else{
+                if (loggedInAccount.getBalance() >= packageCost) {
+                    loggedInAccount.deductBalance(packageCost);
+                    System.out.println("Пакет успешно приобретен! Списано " + packageCost + " рублей. Текущий баланс: " + loggedInAccount.getBalance() + " рублей");
+                } else {
+                    System.out.println("Недостаточно средств для покупки этого пакета.");
+                }
+            }         
+        } 
+        else {
             System.out.println("Сначала войдите в аккаунт, чтобы выбрать пакет.");
         }
     }
