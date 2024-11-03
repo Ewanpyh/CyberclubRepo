@@ -71,7 +71,7 @@ public class VersusUser {
     private static void createAccount() {
         System.out.print("Введите номер телефона: ");
         String phoneNumber = scanner.nextLine();
-        if (phoneNumber.charAt(0) == '+'){                        //check if phone number is correct +7 && 11 digits
+        if (phoneNumber.charAt(0) == '+' && phoneNumber.length() == 12){                        //check if phone number is correct +7 && 11 digits
             if (accounts.containsKey(phoneNumber)) {
                 System.out.println("Аккаунт с таким номером телефона уже существует.");
             } else {
@@ -82,7 +82,7 @@ public class VersusUser {
             }
         }
         else{
-            System.out.println("\n Неверный номер\n Номер должен начинаться с +7\n Попробуйте снова");
+            System.out.println("\n Неверный номер\n Номер должен быть написан в формате +7-XXX-XXX-XX-XX\n Попробуйте снова");
         }
     }
 
@@ -136,7 +136,7 @@ public class VersusUser {
             System.out.println("7. Утро - 200 рублей\n");
             System.out.println("8. Назад");
             System.out.println("Ваш баланс: " + loggedInAccount.getBalance());
-            System.out.print("Выберите номер пакета: ");
+            System.out.print("Выберите номер пакета или же 8, чтобы вернутся назад: ");
 
             int packageChoice = scanner.nextInt();
             double packageCost = 0;
